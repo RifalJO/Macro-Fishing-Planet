@@ -18,15 +18,12 @@ loopRunning := false
 
                 ; Tekan tombol spasi
                 Send, {Space Down}
-                Sleep, 2070
-                send, {n down}
-                sleep 30
-                
+                Sleep, 2020
+               
                 ; Lepaskan tombol spasi
                 Send, {Space Up}
-                sleep 150
+                sleep 350
 
-                send, {n up}
                 ; Periksa apakah tombol Ctrl + X ditekan lagi untuk menghentikan loop
                 if (!loopRunning)
                     Break 1
@@ -50,28 +47,30 @@ loopRunning := false
             x2 := 897
             y2 := 1080
 
-
-                PixelSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, 0x459AF7, 5, Fast RGB
-                if (!ErrorLevel) {
-                MouseMove, FoundX, FoundY
-                Click
-                sleep 9000
-                goto, gantihari
-                }else{
-                goto, gantihari
-                }
-
-
                 PixelSearch, FoundX, FoundY, 442, 144, 489, 185, 0x7ED322, 5, Fast RGB
                 if (!ErrorLevel) {
                 goto, naiklevel
                 }
+
 
                 PixelSearch, FoundX, FoundY, 285, 268, 325, 305, 0x7ED322, 5, Fast RGB
                 if (!ErrorLevel) {
                 goto, penghargaan
                 } 
 
+
+                PixelSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, 0x459AF7, 5, Fast RGB
+                if (!ErrorLevel) {
+                send, {^ down} 
+
+                MouseMove, FoundX, FoundY
+                Click
+                sleep 9000
+                goto, gantihari
+                send, {^ up}
+                }else{
+                goto, gantihari
+                }
 
                 if (!loopRunning)
                 Break 1
@@ -88,18 +87,21 @@ return
 
 
 
-
+   
  
  gantihari:
+ 
+ send, {^ down} 
+
  PixelSearch, FoundX, FoundY, 69, 152, 114, 202, 0xffc300, 5, Fast RGB
  if (!ErrorLevel) {
-                
+
  MouseMove, 812, 953
- sleep 500
+ sleep 1000
 
  Click
  sleep 5000
-
+  
  send t
  sleep 3000
 
@@ -120,19 +122,21 @@ return
 
  Click
  sleep 2000
- 
+
+ send, {^ up}
  goto casting
 
  } else {
     goto, casting
  }
+ 
 
 ; Jika naik level
 
 naiklevel:
+ send, {^ down}
 
-
- MouseMove, 677, 899
+ MouseMove, 674, 924
  sleep 3000
 
  click
@@ -152,10 +156,13 @@ naiklevel:
 
  goto casting
 
+send, {^ up}
 
 ;Jika mendapatkan achievment
 
  penghargaan:
+
+ send, {^ down}
  MouseMove, 530, 760
  sleep 3000
 
@@ -175,4 +182,5 @@ naiklevel:
  Sleep 1000
 
  goto casting
+ send, {^ up}
 

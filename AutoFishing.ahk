@@ -1,7 +1,7 @@
 #SingleInstance, Force
 SendMode Input
 
-Menu, Tray, Icon, C:\RifalJo\AHK\Red.ico
+Menu, Tray, Icon, C:\RifalJo\AHK\faljo.ico
  
 #MaxThreadsPerHotkey 2
 loopRunning := false
@@ -15,7 +15,6 @@ loopRunning := false
     if (loopRunning) {
         Loop {    
 
-
                 ; Tekan tombol spasi
                 Send, {Space Down}
                 Sleep, 2020
@@ -27,6 +26,7 @@ loopRunning := false
                 ; Periksa apakah tombol Ctrl + X ditekan lagi untuk menghentikan loop
                 if (!loopRunning)
                     Break 1
+
                 goto,kondisi
             
             
@@ -47,7 +47,9 @@ loopRunning := false
             x2 := 897
             y2 := 1080
 
-                PixelSearch, FoundX, FoundY, 442, 144, 489, 185, 0x7ED322, 5, Fast RGB
+                send, {^ down} 
+
+                PixelSearch, FoundX, FoundY, 185, 91, 774, 450, 0x7ED322, 5, Fast RGB
                 if (!ErrorLevel) {
                 goto, naiklevel
                 }
@@ -77,7 +79,7 @@ loopRunning := false
 
                 goto,casting
         }
-                
+                send, {^ up}
  } else {
       MsgBox, Loop dihentikan.  ; Menampilkan pesan saat loop dihentikan
        }
@@ -96,10 +98,10 @@ return
  PixelSearch, FoundX, FoundY, 69, 152, 114, 202, 0xffc300, 5, Fast RGB
  if (!ErrorLevel) {
 
- MouseMove, 812, 953
- sleep 1000
+ ; MouseMove, 812, 953
+ ;sleep 1000
 
- Click
+ ;Click
  sleep 5000
   
  send t
@@ -135,10 +137,17 @@ return
 
 naiklevel:
  send, {^ down}
+ sleep 1000
+
+ MouseMove, 958, 892
+ sleep 3000
+
+ click
+ Sleep 1000
 
  MouseMove, 674, 924
  sleep 3000
-
+ 
  click
  Sleep 1000
  
@@ -154,21 +163,23 @@ naiklevel:
   click
  Sleep 1000
 
+ send, {^ up}
+
  goto casting
 
-send, {^ up}
 
 ;Jika mendapatkan achievment
 
  penghargaan:
 
- send, {^ down}
+ 
  MouseMove, 530, 760
  sleep 3000
-
- click
- Sleep 1000
  
+ click
+
+ Sleep 2000
+ send, {^ down}
   MouseMove, 1635, 85
  sleep 3000
 
